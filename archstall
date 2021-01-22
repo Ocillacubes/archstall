@@ -151,7 +151,6 @@ if [ ! -f "packages" ]; then
 fi
 
 # Choose packages
-echo "" > aurpkgs
 # Browsers
 read "Please select what browser(s) you would like (lynx installed by default)"
 browserlist=('qutebrowser' 'firefox' 'finished')
@@ -374,22 +373,14 @@ if [ ! -f "archstall2" ]; then
     echo $dm > /mnt/dm
     echo $de > /mnt/de
     echo ""
-    mv aurpkgs /mnt/aurpkgs
-    mv username /mnt/
 fi
 
 clear
 
 # chroot in and run the second script
-arch-chroot /mnt /bin/bash -c "su - -c /archstall2"
-
-clear
-
-# cleanup
-echo "Cleaning up files..."
-rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
-
-echo ""
+arch-chroot /mnt /bin/bash
+cd /
+bash archstall2
 
 # Install yay
 git clone https://aur.archlinux.org/yay.git
@@ -402,6 +393,19 @@ rm -rf yay
 # Install uwuTerm
 wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
 mv uwuTerm /usr/bin/
+
+# Leave chroot
+exit
+echo "test"
+
+clear
+
+# cleanup
+echo "Cleaning up files..."
+rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
+
+echo ""
+
 
 # unmount the filesystems
 echo "Unmounting the filesystems..."

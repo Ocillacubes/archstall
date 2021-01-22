@@ -164,5 +164,3 @@ elif [[ $boot == "bios" ]]; then
 	grub-mkconfig -o /boot/grub/grub.cfg
 	
 fi
-
-exit
