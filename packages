@@ -29,7 +29,7 @@ vim
 #firefox
 #qutebrowser
 #icecat
-#lynx
+lynx
 
 # file managers
 #ranger
@@ -40,13 +40,13 @@ vim
 #yay
 
 # music
-# ncmpcpp
+#ncmpcpp
 
 # terminal emulators
 #konsole
 #alacritty
 #xterm
-uwuTerm
+#uwuTerm
 
 # socialy stuff
 #newsboat
