@@ -3,6 +3,58 @@ base-devel
 linux
 #linux-lts
 linux-firmware
+
 man-db
+
+#nano
 vim
+
+# window managers
+#i3-gaps
+#bspwm
+#openbox
+#xmonad
+#awesome
+#herbstluftwm
+
+# desktop environments (best to choose only one)
+#gnome
+#plasma
+#lxqt
+#mate
+#xfce4
+#xfce4-goodies
+
+# browsers
+#firefox
+#qutebrowser
+#icecat
+#lynx
+
+# file managers
+#ranger
+#lf
+
+# aur helper
+#paru
+#yay
+
+# music
+# ncmpcpp
+
+# terminal emulators
+#konsole
+#alacritty
+#xterm
+uwuTerm
+
+# socialy stuff
+#newsboat
+#mutt
+#mumble
+
+# other stuff
 neofetch
+#gimp
+#flameshot
+#pulseaudio
