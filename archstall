@@ -150,25 +150,6 @@ if [ ! -f "packages" ]; then
     echo ""
 fi
 
-'''
-# edit package list
-echo "Add/uncomment packages which you want in the packages file"
-echo "(the ones already uncommented are basically must-haves)"
-echo ""
-read -p "Do you want to edit the package list with (n)ano, (v)im, or (s)kip? [nano] " editor
-echo ""
-
-if [[ $editor == "n" || $editor == "nano" || $editor == "" ]]; then
-	nano packages
-elif [[ $editor == "v" || $editor == "vim" ]]; then
-	vim packages
-elif [[ $editor == "s" || $editor == "skip" ]]; then
-	echo "Skipping package list editing..."
-fi
-
-echo ""
-'''
-
 # Choose packages
 echo "" > aurpkgs
 # Browsers
@@ -402,18 +383,7 @@ rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
 
 echo ""
 
-# TODO check if this works and also add uwuTerm
-'''
-# install yay and selected aur programs, but only if there is a user
-if [[ ! $username == "" ]]; then
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    cd ../
-    rm -rf yay
-    yay -S - < aurpkgs 
-fi
-'''
+# TODO add yay and install aur packages and also add uwuTerm
 
 
 # unmount the filesystems
