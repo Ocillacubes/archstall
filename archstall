@@ -153,9 +153,8 @@ fi
 # Choose packages
 echo "" > aurpkgs
 # Browsers
-read -p "Please select what browser(s) you would like (lynx installed by default)"
+read "Please select what browser(s) you would like (lynx installed by default)"
 browserlist=('icecat' 'qutebrowser' 'firefox' 'finished')
-echo $browserlist
 select selection in "${browserlist[@]}"; do
     case $selection in 
         "icecat")
@@ -168,16 +167,15 @@ select selection in "${browserlist[@]}"; do
             echo $selection >> packages
             ;;
         "finished")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
 done
 
 # File managers
-read -p "Select file managers"
+read "Select file managers"
 filemgrlist=('nautilus' 'ranger' 'lf' 'nnn' 'finished')
-echo $filemgrlist
 select selection in "${filemgrlist[@]}"; do
     case $selection in 
         "natuilus")
@@ -193,16 +191,15 @@ select selection in "${filemgrlist[@]}"; do
             echo $selection >> packages
             ;;
         "finished")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
 done
 
 # Terminal Emulators
-read -p "Select terminal emulators (uwuTerm is default, and konsole will come if you select plasma as a DE)"
+read "Select terminal emulators (uwuTerm is default, and konsole will come if you select plasma as a DE)"
 termemlist=('xterm' 'alacritty' 'finished')
-echo $termemlist
 select selection in "${termemlist[@]}"; do
     case $selection in 
         "xterm")
@@ -212,16 +209,15 @@ select selection in "${termemlist[@]}"; do
             echo $selection >> packages
             ;;
         "finished")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
 done
 
 # DE/WM
-read -p "Select a window manager or desktop enviornment (can only choose one)"
+read "Select a window manager or desktop enviornment (can only choose one)"
 uglylist=('gnome' 'plasma' 'lxqt' 'mate' 'xfce4' 'xfce4-goodies' 'i3-gaps' 'bspwm' 'openbox' 'xmonad' 'awesome' 'herbstluftwm' 'Im too much of a gamer for this garbage Ill stick to tty')
-echo $uglylist
 # Worlds ugliest case thing
 select selection in "${uglylist[@]}"; do
     case $selection in 
@@ -262,16 +258,15 @@ select selection in "${uglylist[@]}"; do
             echo $selection >> packages
             ;;
         "Im too much of a gamer for this garbage Ill stick to tty")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
 done
 
 # Social-y Stuff
-read -p "Select social type things"
+read "Select social type things"
 socialylist=('newsboat' 'mumble' 'mutt' 'finished')
-echo $socialylist
 select selection in "${socialylist[@]}"; do
     case $selection in 
         "newsboat")
@@ -284,7 +279,7 @@ select selection in "${socialylist[@]}"; do
             echo $selection >> packages
             ;;
         "finished")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
@@ -294,9 +289,8 @@ done
 
 
 # Others
-read -p "Select other programs"
+read "Select other programs"
 otherslist=('ncmpcpp' 'neofetch' 'gimp' 'flameshot' 'pulseaudio' 'finished')
-echo $otherlist
 select selection in "${socialylist[@]}"; do
     case $selection in 
         "neofetch")
@@ -316,7 +310,7 @@ select selection in "${socialylist[@]}"; do
             echo "Read here to find how to configure ncmpcpp: https://wiki.archlinux.org/index.php/Ncmpcpp"
             ;;
         "finished")
-            exit
+            break
             ;;
         *) echo "Please select a valid option" ;;
     esac
@@ -389,8 +383,7 @@ rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
 
 echo ""
 
-# TODO add yay and install aur packages and also add uwuTerm
-
+# TODO check if this works and also add uwuTerm
 
 # unmount the filesystems
 echo "Unmounting the filesystems..."
