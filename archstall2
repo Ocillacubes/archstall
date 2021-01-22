@@ -165,17 +165,9 @@ elif [[ $boot == "bios" ]]; then
 	
 fi
 
-# Install yay
-git clone https://aur.archlinux.org/yay/git
-cd yay
-makepkg -si 
-cd ../
-rm -rf yay
-
 # Install uwuTerm
 wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
+chmod +x uwuTerm
 mv uwuTerm /usr/bin
-
-
 
 exit
