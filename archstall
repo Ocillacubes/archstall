@@ -291,7 +291,7 @@ done
 # Others
 read "Select other programs"
 otherslist=('ncmpcpp' 'neofetch' 'gimp' 'flameshot' 'pulseaudio' 'finished')
-select selection in "${socialylist[@]}"; do
+select selection in "${otherslist[@]}"; do
     case $selection in 
         "neofetch")
             echo $selection >> packages
