@@ -83,8 +83,6 @@ if [[ $user == "y" || $user == "" ]]; then
 	
 	echo "Setting the ${blue}user$end password..."
 	passwd $username
-
-    echo $username > username
 fi
 
 clear

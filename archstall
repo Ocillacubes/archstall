@@ -154,12 +154,9 @@ fi
 echo "" > aurpkgs
 # Browsers
 read "Please select what browser(s) you would like (lynx installed by default)"
-browserlist=('icecat' 'qutebrowser' 'firefox' 'finished')
+browserlist=('qutebrowser' 'firefox' 'finished')
 select selection in "${browserlist[@]}"; do
     case $selection in 
-        "icecat")
-            echo $selection >> aurpkgs
-            ;;
         "firefox")
             echo $selection >> packages
             ;;
@@ -175,7 +172,7 @@ done
 
 # File managers
 read "Select file managers"
-filemgrlist=('nautilus' 'ranger' 'lf' 'nnn' 'finished')
+filemgrlist=('nautilus' 'ranger' 'nnn' 'finished')
 select selection in "${filemgrlist[@]}"; do
     case $selection in 
         "natuilus")
@@ -183,9 +180,6 @@ select selection in "${filemgrlist[@]}"; do
             ;;
         "ranger")
             echo $selection >> packages
-            ;;
-        "lf")
-            echo $selection >> aurpkgs
             ;;
         "nnn")
             echo $selection >> packages
@@ -397,33 +391,17 @@ rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
 
 echo ""
 
+# Install yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ../
+rm -rf yay
 # TODO install aur packages
-username=$(cat username)
-if [[ ! $username == "" ]]; then
-    # Install yay
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    cd ../
-    rm -rf yay
-    # Install uwuTerm
-    wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
-    mv uwuTerm /usr/bin/
-    # Install aur packages
-    if grep -Fxq "icecat" aurpkgs; then
-        am=$(whoami)
-        if [[ ! $am == $username ]]; then
-        su $username
-        yay -S icecat
-        fi
-    elif grep -Fxq "lf" aurpkgs; then
-        am=$(whoami)
-        if [[ ! $am == $username ]]; then
-        su $username
-        yay -S lf
-        fi
-    fi
-fi
+
+# Install uwuTerm
+wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
+mv uwuTerm /usr/bin/
 
 # unmount the filesystems
 echo "Unmounting the filesystems..."
