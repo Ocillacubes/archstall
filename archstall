@@ -223,39 +223,51 @@ select selection in "${uglylist[@]}"; do
     case $selection in 
         "gnome")
             echo $selection >> packages
+            break
             ;;
         "plasma")
             echo $selection >> packages
+            break
             ;;
         "lxqt")
             echo $selection >> packages
+            break
             ;;
         "mate")
             echo $selection >> packages
+            break
             ;;
         "xfce4")
             echo $selection >> packages
+            break
             ;;
         "xfce4-goodies")
             echo $selection >> packages
+            break
             ;;
         "i3-gaps")
             echo $selection >> packages
+            break
             ;;
         "bspwm")
             echo $selection >> packages
+            break
             ;;
         "openbox")
             echo $selection >> packages
+            break
             ;;
         "xmonad")
             echo $selection >> packages
+            break
             ;;
         "awesome")
             echo $selection >> packages
+            break
             ;;
         "herbstluftwm")
             echo $selection >> packages
+            break
             ;;
         "Im too much of a gamer for this garbage Ill stick to tty")
             break
@@ -368,6 +380,7 @@ if [ ! -f "archstall2" ]; then
     echo $dm > /mnt/dm
     echo $de > /mnt/de
     echo ""
+    mv aurpkgs /mnt/aurpkgs
 fi
 
 clear
@@ -383,7 +396,26 @@ rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
 
 echo ""
 
-# TODO check if this works and also add uwuTerm
+# TODO install aur packages
+if [[ ! $username == "" ]]; then
+    # Install yay
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd ../
+    rm -rf yay
+    # Install uwuTerm
+    wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
+    mv uwuTerm /usr/bin/
+    # Install aur packages
+    if grep -Fxq "icecat" aurpkgs; then
+        su $username
+        yay -S icecat
+    elif grep -Fxq "lf" aurpkgs; then
+        su $username
+        yay -S lf
+    fi
+fi
 
 # unmount the filesystems
 echo "Unmounting the filesystems..."
