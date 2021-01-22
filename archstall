@@ -141,12 +141,16 @@ fi
 
 clear
 
-# download the package list
-echo "${green}Downloading the package list...$end"
-echo ""
-curl https://raw.githubusercontent.com/PowerMan2206/archstall/master/packages > packages
-echo ""
+# Check if package list is there (would be a result of git clone)
+if [ ! -f "packages" ]; then
+    # download the package list
+    echo "${green}Downloading the package list...$end"
+    echo ""
+    curl https://raw.githubusercontent.com/ocillacubes/archstall/master/packages > packages
+    echo ""
+fi
 
+'''
 # edit package list
 echo "Add/uncomment packages which you want in the packages file"
 echo "(the ones already uncommented are basically must-haves)"
@@ -163,12 +167,183 @@ elif [[ $editor == "s" || $editor == "skip" ]]; then
 fi
 
 echo ""
+'''
+
+# Choose packages
+echo "" > aurpkgs
+# Browsers
+read -p "Please select what browser(s) you would like (lynx installed by default)"
+browserlist=('icecat' 'qutebrowser' 'firefox' 'finished')
+select selection in "${browserlist[@]}"; do
+    case $selection in 
+        "icecat")
+            echo $selection >> aurpkgs
+            ;;
+        "firefox")
+            echo $selection >> packages
+            ;;
+        "qutebrowser")
+            echo $selection >> packages
+            ;;
+        "finished")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+# File managers
+read -p "Select file managers"
+filemgrlist=('nautilus' 'ranger' 'lf' 'nnn' 'finished')
+select selection in "${filemgrlist[@]}"; do
+    case $selection in 
+        "natuilus")
+            echo $selection >> packages
+            ;;
+        "ranger")
+            echo $selection >> packages
+            ;;
+        "lf")
+            echo $selection >> aurpkgs
+            ;;
+        "nnn")
+            echo $selection >> packages
+            ;;
+        "finished")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+# Terminal Emulators
+read -p "Select terminal emulators (uwuTerm is default, and konsole will come if you select plasma as a DE)"
+termemlist=('xterm' 'alacritty' 'finished')
+select selection in "${termemlist[@]}"; do
+    case $selection in 
+        "xterm")
+            echo $selection >> packages
+            ;;
+        "alacritty")
+            echo $selection >> packages
+            ;;
+        "finished")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+# DE/WM
+read -p "Select a window manager or desktop enviornment (can only choose one)"
+uglylist=('gnome' 'plasma' 'lxqt' 'mate' 'xfce4' 'xfce4-goodies' 'i3-gaps' 'bspwm' 'openbox' 'xmonad' 'awesome' 'herbstluftwm' 'Im too much of a gamer for this garbage Ill stick to tty')
+# Worlds ugliest case thing
+select selection in "${uglylist[@]}"; do
+    case $selection in 
+        "gnome")
+            echo $selection >> packages
+            ;;
+        "plasma")
+            echo $selection >> packages
+            ;;
+        "lxqt")
+            echo $selection >> packages
+            ;;
+        "mate")
+            echo $selection >> packages
+            ;;
+        "xfce4")
+            echo $selection >> packages
+            ;;
+        "xfce4-goodies")
+            echo $selection >> packages
+            ;;
+        "i3-gaps")
+            echo $selection >> packages
+            ;;
+        "bspwm")
+            echo $selection >> packages
+            ;;
+        "openbox")
+            echo $selection >> packages
+            ;;
+        "xmonad")
+            echo $selection >> packages
+            ;;
+        "awesome")
+            echo $selection >> packages
+            ;;
+        "herbstluftwm")
+            echo $selection >> packages
+            ;;
+        "Im too much of a gamer for this garbage Ill stick to tty")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+# Social-y Stuff
+read -p "Select social type things"
+socialylist=('newsboat' 'mumble' 'mutt' 'finished')
+select selection in "${socialylist[@]}"; do
+    case $selection in 
+        "newsboat")
+            echo $selection >> packages
+            ;;
+        "mumble")
+            echo $selection >> packages
+            ;;
+        "mutt")
+            echo $selection >> packages
+            ;;
+        "finished")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+# TODO: add support for paru so bread will be happy for once
+
+
+# Others
+read -p "Select other programs"
+otherslist=('ncmpcpp' 'neofetch' 'gimp' 'flameshot' 'pulseaudio' 'finished')
+select selection in "${socialylist[@]}"; do
+    case $selection in 
+        "neofetch")
+            echo $selection >> packages
+            ;;
+        "gimp")
+            echo $selection >> packages
+            ;;
+        "flameshot")
+            echo $selection >> packages
+            ;;
+        "pulseaudio")
+            echo $selection >> packages
+            ;;
+        "ncmpcpp")
+            echo $selection >> packages
+            echo "Read here to find how to configure ncmpcpp: https://wiki.archlinux.org/index.php/Ncmpcpp"
+            ;;
+        "finished")
+            exit
+            ;;
+        *) echo "Please select a valid option" ;;
+    esac
+done
+
+
+
 
 # take the packages list and get rid of the comments
 echo "Cleaning up the package list..."
 cat packages | grep -v "#" > packagesclean
 
 echo ""
+
 
 # put the DE service in a variable and install extra packages if needed
 if grep -Fxq "gnome" packagesclean; then
@@ -199,16 +374,20 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 echo ""
 
+
+# Check if 2nd script is there
+if [ ! -f "archstall2" ]; then
 # downloading the second script from GitHub and preparing stuff
-echo "${greed}Downloading the second script...$end"
-echo ""
-curl https://raw.githubusercontent.com/PowerMan2206/archstall/master/archstall2 > /mnt/archstall2
-chmod +x /mnt/archstall2
-echo $boot > /mnt/bootmode
-echo $disk > /mnt/diskthing
-echo $dm > /mnt/dm
-echo $de > /mnt/de
-echo ""
+    echo "${greed}Downloading the second script...$end"
+    echo ""
+    curl https://raw.githubusercontent.com/ocillacubes/archstall/master/archstall2 > /mnt/archstall2
+    chmod +x /mnt/archstall2
+    echo $boot > /mnt/bootmode
+    echo $disk > /mnt/diskthing
+    echo $dm > /mnt/dm
+    echo $de > /mnt/de
+    echo ""
+fi
 
 clear
 
@@ -222,6 +401,20 @@ echo "Cleaning up files..."
 rm /mnt/archstall2 /mnt/bootmode /mnt/diskthing /mnt/dm /mnt/de
 
 echo ""
+
+# TODO check if this works and also add uwuTerm
+'''
+# install yay and selected aur programs, but only if there is a user
+if [[ ! $username == "" ]]; then
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd ../
+    rm -rf yay
+    yay -S - < aurpkgs 
+fi
+'''
+
 
 # unmount the filesystems
 echo "Unmounting the filesystems..."
