@@ -164,3 +164,18 @@ elif [[ $boot == "bios" ]]; then
 	grub-mkconfig -o /boot/grub/grub.cfg
 	
 fi
+
+# Install yay
+git clone https://aur.archlinux.org/yay/git
+cd yay
+makepkg -si 
+cd ../
+rm -rf yay
+
+# Install uwuTerm
+wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
+mv uwuTerm /usr/bin
+
+
+
+exit

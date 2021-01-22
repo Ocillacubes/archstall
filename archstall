@@ -378,25 +378,7 @@ fi
 clear
 
 # chroot in and run the second script
-arch-chroot /mnt /bin/bash
-cd /
-bash archstall2
-
-# Install yay
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ../
-rm -rf yay
-# TODO install aur packages
-
-# Install uwuTerm
-wget https://github.com/breadtard/uwuTerm/raw/main/uwuTerm
-mv uwuTerm /usr/bin/
-
-# Leave chroot
-exit
-echo "test"
+arch-chroot /mnt /archstall2
 
 clear
 
